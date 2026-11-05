@@ -7,9 +7,9 @@ Smart Campus Navigation and Facility Analytics System
 3. Shirisha Thapa
 
 Individual Responsibilites:
-Member A: Not assigned yet
-Member B : Not assigned yet
-Member C: Not assigned yet
+Member A: Sirisha Thapa
+Member B : Leah Rodriguez
+Member C: Aanchal Khadka
 
 Planned Shared Responsibilities:
 - File loading and validation
