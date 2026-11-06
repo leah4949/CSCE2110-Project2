@@ -1,10 +1,10 @@
 #ifndef DEPARTMENT_NODE_H
 #define DEPARTMENT_NODE_H
 
-#inclide <string>
+#include <string>
 #include <vector>
 
-using namespace std:
+using namespace std;
 //Represents one department in the general tree
 struct DepartmentNode {
       string departmentName;
@@ -13,9 +13,10 @@ struct DepartmentNode {
 
       // Constructor
       DepartmentNode(string name, DepartmentNode* parentNode = nullptr) {
-          departmentNode(string name, DepartmentNode* parentNode = nullptr)
+          departmentName = name;
           parent = parentNode;
       }
+
 };
 #endif
 
