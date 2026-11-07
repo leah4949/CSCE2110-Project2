@@ -1,3 +1,6 @@
+// Author: Shirisha Thapa
+// Stores information about a campus facility.
+
 #ifndef FACILITY_H
 #define FACILITY_H
 
