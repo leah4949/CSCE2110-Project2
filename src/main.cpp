@@ -8,6 +8,8 @@
 #include <string>
 #include <cstdlib>
 #include "../include/CampusGraph.h"
+#include "../include/FacilityHashTable.h"
+#include "../include/DepartmentTree.h"
 
 using namespace std;
 
@@ -32,7 +34,7 @@ string trimInput(string str){
 
 void printMenu(){
   cout << "\n--- Smart Campus Navigation System ---\n";
-  cout << "1. View all faculities\n";
+  cout << "1. View all facilities\n";
   cout << "2. Search facility by ID\n";
   cout << "3. View campus graph\n";
   cout << "4. Display graph counts and degrees\n";
@@ -54,9 +56,13 @@ int main(int argc, char* argv[]){
   }
 
   CampusGraph campusGraph;
+  FacilityHashTable facilityTable;
+  DepartmentTree departmentTree;
 
   loadBuildings(dataDirectory + "/buildings.txt", campusGraph);
   loadConnections(dataDirectory + "/connections.txt", campusGraph);
+  loadFacilities(dataDirectory + "/facilities.txt",campusGraph, facilityTable);
+  loadDepartments(dataDirectory + "/departments.txt", departmentTree);
 
   bool running = true;
   while(running){
@@ -87,7 +93,7 @@ int main(int argc, char* argv[]){
     int choice = atoi(cleanInput.c_str());
 
     if(choice == 1){
-      cout << "[Siri: displayFacilities()]\n";
+      facilityTable.displayFacilities();
     }
     else if(choice == 2){
       cout << "Enter facility ID: ";
@@ -116,7 +122,23 @@ int main(int argc, char* argv[]){
       }
     }
     else if(choice == 6){
-      cout << "addDepartment\n";
+      cout << "Enter department name: ";
+      string departmentName;
+      getline(cin, departmentName);
+      if(trimInput(departmentName) == ""){
+        cout << "Error: Department name cannot be blank.\n";
+      }else if(departmentTree.isEmpty()){
+        departmentTree.addDepartment(trimInput(departmentName), "NONE");
+      }else{
+        cout << "Enter parent department name: ";
+        string parentName;
+        getline(cin, parentName);
+        if(trimInput(parentName) == ""){
+          cout << "Error parent department name cannot be blank.\n";
+        }else{
+          departmentTree.addDepartment(trimInput(departmentName), trimInput(parentName));
+        }
+      }
     }
     else if(choice == 7){
       cout << "Enter department name: ";
@@ -125,10 +147,26 @@ int main(int argc, char* argv[]){
       if(trimInput(departmentName) == ""){
         cout << "Error: Department name cannot be blank.\n";
       }else{
+        departmentTree.searchDepartment(trimInput(departmentName));
       }
     }
     else if(choice == 8){
-    
+      departmentTree.displayHierarchy();
+    }
+    else if(choice == 9){
+      departmentTree.preorderTraversal();
+    }
+    else if (choice == 10 || choice == 0){
+      cout << "Exiting program.\n";
+      running = false;
+    }
+    else{
+      cout << "Error: Option " << choice << " is not an option. Please enter a number from 1 to 10(or 0 to exit).\n";
+    }
+  }
+
+  return 0;
+}
       
       
         
