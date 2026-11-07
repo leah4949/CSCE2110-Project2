@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cctype>
+#include <queue>
 
 using namespace std;
 
@@ -197,4 +198,97 @@ void DepartmentTree::preorderTraversal() const {
     }
     preorderHelper(root);
 }
+
+// Postorder traversal helper
+void DepartmentTree::postorderHelper(DepartmentNode* node) const {
+    if (node == nullptr) {
+        return;
+    }
+    // Visit all children first
+    for (DepartmentNode* child : node->children) {
+        postorderHelper(child);
+    }
+    // Visit parent last
+    cout << node->departmentName << endl;
+}
+    // Postorder traversal
+    void DepartmentTree::postorderTraversal() const {
+    if (isEmpty()) {
+        cout << "Department tree is empty." << endl;
+        return;
+    }
+    postorderHelper(root);
+    }
+    void DepartmentTree::levelOrderTraversal() const {
+        if (isEmpty()) {
+            cout << "Department tree is empty." << endl;
+            return;
+        }
+
+        queue<DepartmentNode*> q;
+
+        // Start with the root
+        q.push(root);
+
+        while (!q.empty()) {
+            // Get the next department
+            DepartmentNode* current = q.front();
+            q.pop();
+
+            // Visit this department
+            cout << current->departmentName << endl;
+
+            // Add its children to the queue
+            for (DepartmentNode* child : current->children) {
+                q.push(child);
+            }
+        }
+
+    }
+
+    // Count all departments recursively
+    int DepartmentTree::countHelper(DepartmentNode* node) const {
+        if (node == nullptr) {
+            return 0;
+        }
+        int count = 1;
+        for (DepartmentNode* child : node->children) {
+            count += countHelper(child);
+        }
+        return count;
+    }
+    //Return total number of departments
+    int DepartmentTree::countDepartments() const{
+        return countHelper(root);
+    }
+
+
+ // Calculate height recursively
+int DepartmentTree::heightHelper(DepartmentNode* node) const {
+    if (node == nullptr) {
+        return -1;
+    }
+
+    int maxChildHeight = -1;
+
+    for (DepartmentNode* child : node->children) {
+        int childHeight = heightHelper(child);
+
+        if (childHeight > maxChildHeight) {
+            maxChildHeight = childHeight;
+        }
+    }
+
+    return maxChildHeight + 1;
+}
+
+// Return the height of the department tree
+int DepartmentTree::treeHeight() const {
+    return heightHelper(root);
+}
+
+    
+ 
+
+
 

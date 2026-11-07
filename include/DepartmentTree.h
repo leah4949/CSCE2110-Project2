@@ -27,6 +27,12 @@ private:
     void deleteTree(
     DepartmentNode* node
     );
+    void postorderHelper(DepartmentNode* node) const;
+
+    int countHelper(DepartmentNode* node) const;
+
+    int heightHelper(DepartmentNode* node) const;
+
 public:
     // Constructor
     DepartmentTree();
@@ -57,6 +63,16 @@ public:
 
     // Preorder traversal
     void preorderTraversal() const;
+
+    // Postorder traversal
+    void postorderTraversal() const;
+
+    // Level-order traversal (BFS)
+    void levelOrderTraversal() const;
+
+    int countDepartments() const;
+    int treeHeight() const;
+
 
 };
 #endif
